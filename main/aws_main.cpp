@@ -40,12 +40,12 @@ static void app_sntp_init()
     char strftime_buf[64];
     ESP_LOGI("Time", "Initializing SNTP\n");
     sntp_setoperatingmode(SNTP_OPMODE_POLL);
-    sntp_setservername(0, (char*) "pool.ntp.org");
+    sntp_setservername(0, (char *) "pool.ntp.org");
     sntp_init();
 
     while (timeinfo.tm_year < (2016 - 1900) && ++retry < 10) {
         ESP_LOGI("Time", "Waiting for system time to be set... (%d/%d)\n",
-                retry, 10);
+                 retry, 10);
         vTaskDelay(2000 / portTICK_PERIOD_MS);
         time(&now);
         localtime_r(&now, &timeinfo);
@@ -68,12 +68,12 @@ extern "C" void app_main()
 
     app_sntp_init();
 #ifdef CONFIG_MBEDTLS_DEBUG
-    const size_t stack_size = 36*1024;
+    const size_t stack_size = 36 * 1024;
 #else
     const size_t stack_size = 36 * 1024;
 #endif
 
     /*Start AWS task*/
     xTaskCreatePinnedToCore(&aws_iot_task, "aws_iot_task", stack_size, NULL, 5,
-    NULL, 1);
+                            NULL, 1);
 }

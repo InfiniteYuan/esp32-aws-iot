@@ -3,7 +3,7 @@
 # project subdirectory.
 #
 
-PROJECT_NAME := aws_iot_lcd
+PROJECT_NAME := esp32_aws_iot
 #If IOT_SOLUTION_PATH is not defined, use relative path as default value
 IOT_SOLUTION_PATH ?= $(abspath $(shell pwd)/../../)
  
